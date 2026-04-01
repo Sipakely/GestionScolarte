@@ -1,0 +1,9 @@
+<h2>Dashboard</h2>
+
+{% if role == 'admin' %}
+<p>Admin</p>
+{% else %}
+<p>Utilisateur</p>
+{% endif %}
+
+<a href="/logout/">Logout</a>

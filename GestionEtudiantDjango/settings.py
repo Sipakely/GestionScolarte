@@ -22,6 +22,7 @@ INSTALLED_APPS = [
 
     'users',
     'matieres.apps.MatieresConfig',
+    'notes',
 ]
 
 # MIDDLEWARE

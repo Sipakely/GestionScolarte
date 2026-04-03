@@ -1,8 +1,7 @@
 from django.db import models
 
-class Etudiant(models.Model):
+class Matiere(models.Model):
     nom = models.CharField(max_length=100)
-    email = models.EmailField()
 
     def __str__(self):
         return self.nom

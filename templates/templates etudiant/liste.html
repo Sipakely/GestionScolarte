@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Étudiants</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+
+    <h2>Liste des étudiants</h2>
+
+    <a href="/etudiants/ajouter/" class="btn">Ajouter</a>
+
+    <table>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for etudiant in etudiants %}
+        <tr>
+            <td>{{ etudiant.nom }}</td>
+            <td>{{ etudiant.email }}</td>
+            <td>
+                <a href="/etudiants/modifier/{{ etudiant.id }}">Modifier</a>
+                <a href="/etudiants/supprimer/{{ etudiant.id }}">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    {% endblock %}
+</body>
+</html>

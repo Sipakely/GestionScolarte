@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block content %}
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Étudiants</h3>
+            <p>{{ total_etudiants }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Matières</h3>
+            <p>{{ total_matieres }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Notes</h3>
+            <p>{{ total_notes }}</p>
+        </div>
+
+    </div>
+
+    {% endblock %}
+    </body>
+</html>

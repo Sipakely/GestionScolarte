@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm
+from django.shortcuts import render
+from .models import Etudiant
+
 
 def login_view(request):
     form = LoginForm()
@@ -32,3 +35,18 @@ def dashboard(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+def liste_etudiants(request):
+    return render(request, 'users/liste.html')
+
+def liste_etudiants(request):
+    etudiants = Etudiant.objects.all()
+    return render(request, 'users/liste.html', {'etudiants': etudiants})
+
+def dashboard(request):
+    context = {
+        'total_etudiants': Etudiant.objects.count(),
+        'total_matieres': Matiere.objects.count(),
+        'total_notes': Note.objects.count(),
+    }
+    return render(request, 'dashboard.html', context)

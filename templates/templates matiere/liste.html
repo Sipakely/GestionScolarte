@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des matieres </title>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Liste des matières</h2>
+
+<a href="/matieres/ajouter/">Ajouter</a>
+
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for matiere in matieres %}
+    <tr>
+        <td>{{ matiere.nom }}</td>
+        <td>
+            <a href="/matieres/modifier/{{ matiere.id }}">Modifier</a>
+            <a href="/matieres/supprimer/{{ matiere.id }}">Supprimer</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
+</body>
+</html>

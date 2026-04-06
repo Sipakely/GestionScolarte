@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Scolarité</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>🎓 GS</h2>
+            <ul>
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/etudiants/">Étudiants</a></li>
+                <li><a href="/matieres/">Matières</a></li>
+                <li><a href="/notes/">Notes</a></li>
+                <li><a href="/logout/">Déconnexion</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+
+            <!-- Header -->
+            <header class="header">
+                <h1>Tableau de bord</h1>
+                <p>Bienvenue 👋</p>
+            </header>
+
+            <!-- Contenu -->
+            <section class="content">
+                {% block content %}
+                {% endblock %}
+            </section>
+
+        </main>
+
+    </div>
+
+    </body>
+</html>

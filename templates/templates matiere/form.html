@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+</head>
+<body>
+    <form method="POST">
+    {% csrf_token %}
+
+    <div>
+        <label>Nom :</label>
+        {{ form.nom }}
+        {{ form.nom.errors }}
+    </div>
+
+    <div>
+        <label>Coefficient :</label>
+        {{ form.coefficient }}
+        {{ form.coefficient.errors }}
+    </div>
+
+    {{ form.non_field_errors }}
+
+    <button type="submit">Enregistrer</button>
+</form>
+</body>
+</html>

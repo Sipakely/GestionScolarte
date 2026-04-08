@@ -31,3 +31,13 @@ def modifier_etudiant(request, id):
 def liste_etudiants(request):
     etudiants = Etudiant.objects.all()
     return render(request, 'etudiants/liste.html', {'etudiants': etudiants})
+
+def login_view(request):
+    if request.method == "POST":
+        nom = request.POST.get("nom")
+        
+        request.session['user'] = nom
+        
+        return redirect('dashboard.html')
+    
+    return render(request, 'login.html')

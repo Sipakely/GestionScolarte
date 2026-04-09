@@ -8,27 +8,41 @@
 <body>
     {% extends 'base.html' %}
 
-    {% block content %}
+{% block title %}Dashboard{% endblock %}
 
-    <div class="cards">
+{% block content %}
 
-        <div class="card">
-            <h3>Étudiants</h3>
-            <p>{{ total_etudiants }}</p>
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3 shadow">
+            <div class="card-body">
+                <h5>Étudiants</h5>
+                <h2>{{ total_etudiants }}</h2>
+            </div>
         </div>
-
-        <div class="card">
-            <h3>Matières</h3>
-            <p>{{ total_matieres }}</p>
-        </div>
-
-        <div class="card">
-            <h3>Notes</h3>
-            <p>{{ total_notes }}</p>
-        </div>
-
     </div>
 
-    {% endblock %}
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3 shadow">
+            <div class="card-body">
+                <h5>Matières</h5>
+                <h2>{{ total_matieres }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3 shadow">
+            <div class="card-body">
+                <h5>Notes</h5>
+                <h2>{{ total_notes }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
     </body>
 </html>

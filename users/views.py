@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import EtudiantForm
 from .models import Etudiant
+from django.contrib import messages
+from etudiants.models import Etudiant
+from matieres.models import Matiere
+from notes.models import Note
 
 def ajouter_etudiant(request):
     if request.method == 'POST':
@@ -10,6 +14,9 @@ def ajouter_etudiant(request):
             return redirect('liste_etudiants')
     else:
         form = EtudiantForm()
+
+    messages.success(request, "Étudiant ajouté avec succès")
+    messages.error(request, "Erreur lors de l'ajout")
 
     return render(request, 'etudiants/form.html', {'form': form})
 
@@ -41,3 +48,11 @@ def login_view(request):
         return redirect('dashboard.html')
     
     return render(request, 'login.html')
+
+def dashboard(request):
+    context = {
+        'total_etudiants': Etudiant.objects.count(),
+        'total_matieres': Matiere.objects.count(),
+        'total_notes': Note.objects.count(),
+    }
+    return render(request, 'dashboard.html', context)

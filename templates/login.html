@@ -1,68 +1,50 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .login-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 300px;
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #34495e;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
 </head>
 <body>
+    {% extends 'base.html' %}
 
-<div class="login-container">
-    <h2>Connexion</h2>
+{% block title %}Connexion{% endblock %}
 
-    <form method="POST">
-        {% csrf_token %}
+{% block content %}
 
-        <input type="text" name="nom" placeholder="Entrez votre nom" required>
+<div class="row justify-content-center">
+    <div class="col-md-5">
 
-        <button type="submit">Se connecter</button>
-    </form>
+        <div class="card shadow">
+            <div class="card-body">
+
+                <h4 class="mb-4 text-center">Connexion</h4>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Nom</label>
+                        <input type="text" name="nom" class="form-control" placeholder="Entrez votre nom" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Entrez votre email" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">
+                        Se connecter
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
+{% endblock %}
 </body>
 </html>

@@ -6,24 +6,19 @@
     <title>Ajout d'étudiant</title>
 </head>
 <body>
-    <div class="card shadow">
-    <div class="card-body">
+    {% extends "base.html" %}
+{% block content %}
 
-        <h4 class="mb-3">Ajouter un étudiant</h4>
+<div class="card-pro">
+  <h4>Ajouter étudiant</h4>
 
-        <form method="POST">
-            {% csrf_token %}
-
-            <div class="mb-3">
-                <label>Nom</label>
-                <input type="text" name="nom" class="form-control">
-            </div>
-
-            <button class="btn btn-success">Enregistrer</button>
-
-        </form>
-
-    </div>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-dark">Enregistrer</button>
+  </form>
 </div>
+
+{% endblock %}
 </body>
 </html>

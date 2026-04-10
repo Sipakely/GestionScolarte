@@ -6,47 +6,30 @@
     <title>Liste des Étudiants</title>
 </head>
 <body>
-  {% extends 'base.html' %}
-
-{% block title %}Étudiants{% endblock %}
-
+  {% extends "base.html" %}
 {% block content %}
 
-<div class="card shadow">
-    <div class="card-body">
+<div class="card-pro">
+  <h4>Liste étudiants</h4>
+  <a href="{% url 'ajouter_etudiant' %}" class="btn btn-dark btn-sm">Ajouter</a>
 
-        <div class="d-flex justify-content-between mb-3">
-            <h4>Liste des étudiants</h4>
-            <a href="/etudiants/ajouter/" class="btn btn-success">
-                ➕ Ajouter un étudiant
-            </a>
-        </div>
-        
-        <table class="table table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+  <table class="table mt-3">
+    <tr>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
 
-            <tbody>
-                {% for etudiant in etudiants %}
-                <tr>
-                    <td>{{ etudiant.nom }}</td>
-                    <td>{{ etudiant.email }}</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-primary">✏️</a>
-                        <a href="#" class="btn btn-sm btn-danger"
-                           onclick="return confirm('Supprimer ?')">🗑️</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
+    {% for e in etudiants %}
+    <tr>
+      <td>{{ e.nom }}</td>
+      <td>{{ e.email }}</td>
+      <td>
+        <a href="{% url 'modifier_etudiant' e.id %}" class="btn btn-warning btn-sm">Edit</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
 </div>
 
 {% endblock %}

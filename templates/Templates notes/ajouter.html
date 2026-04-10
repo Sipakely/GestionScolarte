@@ -7,18 +7,19 @@
 </head>
 <body>
 
-    {% extends 'base.html' %}
+    {% extends "base.html" %}
+{% block content %}
 
-    {% block content %}
+<div class="card-pro">
+  <h4>Ajouter note</h4>
 
-    <h2>Ajouter une note</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-dark">Enregistrer</button>
+  </form>
+</div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Enregistrer</button>
-    </form>
-
-    {% endblock %}
+{% endblock %}
 </body>
 </html>

@@ -6,36 +6,23 @@
     <title>Liste des matieres </title>
 </head>
 <body>
-    {% extends 'base.html' %}
-
-{% block title %}Matières{% endblock %}
-
+    {% extends "base.html" %}
 {% block content %}
 
-<div class="card shadow">
-    <div class="card-body">
+<div class="card-pro">
+  <h4>Matières</h4>
+  <a href="{% url 'ajouter_matiere' %}" class="btn btn-dark btn-sm">Ajouter</a>
 
-        <h4 class="mb-3">Liste des matières</h4>
-
-        <table class="table table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Nom</th>
-                    <th>Coefficient</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for matiere in matieres %}
-                <tr>
-                    <td>{{ matiere.nom }}</td>
-                    <td>{{ matiere.coefficient }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
+  <table class="table mt-3">
+    {% for m in matieres %}
+    <tr>
+      <td>{{ m.nom }}</td>
+      <td>
+        <a href="{% url 'modifier_matiere' m.id %}" class="btn btn-warning btn-sm">Edit</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
 </div>
 
 {% endblock %}

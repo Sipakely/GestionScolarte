@@ -6,30 +6,37 @@
     <title>Formulaire</title>
 </head>
 <body>
-    <form method="POST">
+   {% extends 'base_form.html' %}
+
+{% block title %}Ajout Étudiant{% endblock %}
+
+{% block content %}
+
+<h3 class="form-title">Ajouter un étudiant</h3>
+
+<form method="POST">
     {% csrf_token %}
 
-    <div>
-        <label>Nom :</label>
-        {{ form.nom }}
-        {{ form.nom.errors }}
+    <div class="mb-3">
+        <label>Nom</label>
+        <input type="text" name="nom" class="form-control" required>
     </div>
 
-    <div>
-        <label>Email :</label>
-        {{ form.email }}
-        {{ form.email.errors }}
+    <div class="mb-3">
+        <label>Prénom</label>
+        <input type="text" name="prenom" class="form-control" required>
     </div>
 
-    <div>
-        <label>Age :</label>
-        {{ form.age }}
-        {{ form.age.errors }}
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" required>
     </div>
 
-    {{ form.non_field_errors }}
-
-    <button type="submit">Enregistrer</button>
+    <button type="submit" class="btn btn-primary w-100">
+        Enregistrer
+    </button>
 </form>
+
+{% endblock %}
 </body>
 </html>

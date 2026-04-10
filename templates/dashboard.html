@@ -6,40 +6,108 @@
     <title>Tableau de bord</title>
 </head>
 <body>
-    {% extends 'base.html' %}
-
-{% block title %}Dashboard{% endblock %}
+    {% extends "base.html" %}
 
 {% block content %}
 
-<div class="row">
+<!-- TOPBAR -->
+<div class="topbar">
 
-    <div class="col-md-4">
-        <div class="card text-white bg-primary mb-3 shadow">
-            <div class="card-body">
-                <h5>Étudiants</h5>
-                <h2>{{ total_etudiants }}</h2>
-            </div>
-        </div>
-    </div>
+  <div>
+    <h5 class="mb-0">Dashboard</h5>
+    <small class="text-muted">Vue générale du système</small>
+  </div>
 
-    <div class="col-md-4">
-        <div class="card text-white bg-success mb-3 shadow">
-            <div class="card-body">
-                <h5>Matières</h5>
-                <h2>{{ total_matieres }}</h2>
-            </div>
-        </div>
-    </div>
+  <div>
+    <i class="bi bi-bell me-3"></i>
+    <i class="bi bi-person-circle fs-5"></i>
+  </div>
 
-    <div class="col-md-4">
-        <div class="card text-white bg-warning mb-3 shadow">
-            <div class="card-body">
-                <h5>Notes</h5>
-                <h2>{{ total_notes }}</h2>
-            </div>
-        </div>
+</div>
+
+<!-- STATS CARDS -->
+<div class="row g-3">
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <h6>Étudiants</h6>
+      <h3>120</h3>
+      <small class="text-success">+5% ce mois</small>
     </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <h6>Matières</h6>
+      <h3>8</h3>
+      <small class="text-muted">Actives</small>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <h6>Notes</h6>
+      <h3>450</h3>
+      <small class="text-success">+12 nouvelles</small>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card p-3">
+      <h6>Moyenne générale</h6>
+      <h3>12.8</h3>
+      <small class="text-warning">Stable</small>
+    </div>
+  </div>
+
+</div>
+
+<!-- SECTION TABLE + ACTIVITY -->
+<div class="row mt-4 g-3">
+
+  <!-- TABLE -->
+  <div class="col-md-8">
+    <div class="card p-3">
+      <h6>Derniers étudiants</h6>
+
+      <table class="table table-sm mt-3">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rakoto</td>
+            <td>rakoto@mail.com</td>
+            <td><span class="badge bg-success">Actif</span></td>
+          </tr>
+          <tr>
+            <td>Rabe</td>
+            <td>rabe@mail.com</td>
+            <td><span class="badge bg-warning">En attente</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <!-- ACTIVITY -->
+  <div class="col-md-4">
+    <div class="card p-3">
+      <h6>Activité récente</h6>
+
+      <ul class="list-unstyled mt-3">
+        <li>✔ Note ajoutée</li>
+        <li>✔ Étudiant inscrit</li>
+        <li>✔ Matière modifiée</li>
+      </ul>
+
+    </div>
+  </div>
 
 </div>
 

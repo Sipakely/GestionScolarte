@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .forms import EtudiantForm
 from .models import Etudiant
 from django.contrib import messages
-from etudiants.models import Etudiant
 from matieres.models import Matiere
 from notes.models import Note
 

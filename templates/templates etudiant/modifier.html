@@ -7,18 +7,19 @@
     </title>
 </head>
 <body>
-    {% extends 'base.html' %}
+    {% extends "base.html" %}
+{% block content %}
 
-    {% block content %}
+<div class="card-pro">
+  <h4>Modifier étudiant</h4>
 
-    <h2>Modifier étudiant</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-dark">Modifier</button>
+  </form>
+</div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Modifier</button>
-    </form>
-
-    {% endblock %}
+{% endblock %}
 </body>
 </html>

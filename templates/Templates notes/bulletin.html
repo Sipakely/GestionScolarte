@@ -6,40 +6,19 @@
     <title>Bulletin</title>
 </head>
 <body>
-    {% extends 'base.html' %}
+   {% extends "base.html" %}
+{% block content %}
 
-    {% block content %}
+<div class="card-pro">
+  <h4>Bulletin</h4>
 
-    <h2>Bulletin</h2>
+  {% for e in etudiants %}
+    <h6>{{ e.nom }}</h6>
+    <p>Moyenne : {{ e.moyenne }}</p>
+  {% endfor %}
 
-    <form method="get">
-        <select name="etudiant">
-            {% for etudiant in etudiants %}
-                <option value="{{ etudiant.id }}">{{ etudiant.nom }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Afficher</button>
-    </form>
+</div>
 
-    {% if notes %}
-    <table>
-        <tr>
-            <th>Matière</th>
-            <th>Note</th>
-        </tr>
-
-        {% for note in notes %}
-        <tr>
-            <td>{{ note.matiere.nom }}</td>
-            <td>{{ note.valeur }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <h3>Moyenne : {{ moyenne }}</h3>
-
-    {% endif %}
-
-    {% endblock %}
+{% endblock %}
 </body>
 </html>

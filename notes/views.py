@@ -3,6 +3,7 @@ from .models import Note
 from users.models import Etudiant
 from matieres.models import Matiere
 
+
 def liste_notes(request):
     notes = Note.objects.all()
     return render(request, 'notes/liste.html', {'notes': notes})
@@ -32,10 +33,3 @@ def ajouter_note(request):
         'users': etudiants,
         'matieres': matieres
     })
-
-    def accueil(request):
-    return render(request, 'accueil.html')
-
-def liste_notes(request):
-    notes = Note.objects.all()
-    return render(request, 'notes/liste.html', {'notes': notes})

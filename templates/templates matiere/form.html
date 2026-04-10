@@ -6,24 +6,32 @@
     <title>Formulaire</title>
 </head>
 <body>
-    <form method="POST">
+   {% extends 'base_form.html' %}
+
+{% block title %}Ajout Matière{% endblock %}
+
+{% block content %}
+
+<h3 class="form-title">Ajouter une matière</h3>
+
+<form method="POST">
     {% csrf_token %}
 
-    <div>
-        <label>Nom :</label>
-        {{ form.nom }}
-        {{ form.nom.errors }}
+    <div class="mb-3">
+        <label>Nom de la matière</label>
+        <input type="text" name="nom" class="form-control" required>
     </div>
 
-    <div>
-        <label>Coefficient :</label>
-        {{ form.coefficient }}
-        {{ form.coefficient.errors }}
+    <div class="mb-3">
+        <label>Coefficient</label>
+        <input type="number" name="coefficient" class="form-control" required>
     </div>
 
-    {{ form.non_field_errors }}
-
-    <button type="submit">Enregistrer</button>
+    <button type="submit" class="btn btn-primary w-100">
+        Enregistrer
+    </button>
 </form>
+
+{% endblock %}
 </body>
 </html>

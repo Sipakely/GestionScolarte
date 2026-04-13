@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'users',
     'matieres.apps.MatieresConfig',
     'notes',
+    'utilisateur'
 ]
 
 # MIDDLEWARE
@@ -99,6 +100,10 @@ USE_TZ = True
 
 # STATIC FILES
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static", 
+]
 
 
 # DEFAULT PRIMARY KEY

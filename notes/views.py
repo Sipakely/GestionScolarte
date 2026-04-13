@@ -6,7 +6,7 @@ from matieres.models import Matiere
 
 def liste_notes(request):
     notes = Note.objects.all()
-    return render(request, 'notes/liste.html', {'notes': notes})
+    return render(request, 'Templates notes/liste.html', {'notes': notes})
 
 
 def ajouter_note(request):
@@ -29,7 +29,7 @@ def ajouter_note(request):
 
         return redirect('liste_notes')
 
-    return render(request, 'notes/ajouter.html', {
+    return render(request, 'Templates notes/ajouter.html', {
         'users': etudiants,
         'matieres': matieres
     })

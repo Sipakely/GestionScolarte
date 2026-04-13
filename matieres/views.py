@@ -11,7 +11,7 @@ def ajouter_matiere(request):
     else:
         form = MatiereForm()
 
-    return render(request, 'matieres/form.html', {'form': form})
+    return render(request, 'templates matieres/form.html', {'form': form})
 
 
 def modifier_matiere(request, id):
@@ -25,9 +25,9 @@ def modifier_matiere(request, id):
     else:
         form = MatiereForm(instance=matiere)
 
-    return render(request, 'matieres/form.html', {'form': form})
+    return render(request, 'template matieres/form.html', {'form': form})
 
 
 def liste_matieres(request):
     matieres = Matiere.objects.all()
-    return render(request, 'matieres/liste.html', {'matieres': matieres})
+    return render(request, 'template matieres/liste.html', {'matieres': matieres})

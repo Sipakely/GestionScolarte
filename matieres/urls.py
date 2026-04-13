@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'matieres'
 urlpatterns = [
-    path('', views.liste_matieres, name='liste_matieres'),
-    path('ajouter/', views.ajouter_matiere, name='ajouter_matiere'),
+    path('', views.liste_matieres, name='liste'),
+    path('ajouter/', views.ajouter_matiere, name='ajouter'),
 ]

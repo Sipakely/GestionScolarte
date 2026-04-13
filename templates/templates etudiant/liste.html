@@ -11,7 +11,7 @@
 
 <div class="card-pro">
   <h4>Liste étudiants</h4>
-  <a href="{% url 'ajouter_etudiant' %}" class="btn btn-dark btn-sm">Ajouter</a>
+  <a href="{% url 'users:ajouter' %}" class="btn btn-dark btn-sm">Ajouter</a>
 
   <table class="table mt-3">
     <tr>
@@ -25,8 +25,12 @@
       <td>{{ e.nom }}</td>
       <td>{{ e.email }}</td>
       <td>
-        <a href="{% url 'modifier_etudiant' e.id %}" class="btn btn-warning btn-sm">Edit</a>
+        <a href="{% url 'users:modifier' e.id %}" class="btn btn-warning btn-sm">Edit</a>
       </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3" class="text-muted">Aucun étudiant enregistré</td>
     </tr>
     {% endfor %}
   </table>

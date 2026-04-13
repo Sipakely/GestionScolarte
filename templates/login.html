@@ -7,6 +7,12 @@
 
   <h3 class="mb-3">Connexion</h3>
 
+  {% if error %}
+  <div class="alert alert-danger">
+    {{ error }}
+  </div>
+  {% endif %}
+
   <form method="POST">
     {% csrf_token %}
 

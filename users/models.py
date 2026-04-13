@@ -1,6 +1,7 @@
 from django.db import models
 
 class Etudiant(models.Model):
+    school_name = models.CharField(max_length=255, blank=True, default='')
     nom = models.CharField(max_length=100)
     email = models.EmailField()
     age = models.IntegerField(default=18)

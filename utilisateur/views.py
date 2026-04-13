@@ -1,27 +1,54 @@
+import time
+
+from django.contrib.auth.hashers import check_password, make_password
+from django.db import OperationalError, transaction
 from django.shortcuts import render, redirect
-from .models import School, UserAccount
+from .models import School
 
 
 def signup_view(request):
     if request.method == "POST":
-        school_name = request.POST.get("school_name")
-        email = request.POST.get("email")
-        username = request.POST.get("username")
+        school_name = request.POST.get("school_name", "").strip()
+        email = request.POST.get("email", "").strip()
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password")
 
-        school, created = School.objects.get_or_create(
-            email=email,
-            defaults={"name": school_name}
-        )
-
-        if UserAccount.objects.filter(school=school).count() >= 3:
+        if not username:
             return render(request, "signup.html", {
-                "error": "Limite de 3 utilisateurs atteinte"
+                "error": "Le nom d'utilisateur est obligatoire"
             })
 
-        UserAccount.objects.create(
-            school=school,
-            username=username
-        )
+        if not password:
+            return render(request, "signup.html", {
+                "error": "Le mot de passe est obligatoire"
+            })
+
+        for attempt in range(3):
+            try:
+                with transaction.atomic():
+                    if School.objects.filter(email=email).exists():
+                        return render(request, "signup.html", {
+                            "error": "Email déjà utilisé"
+                        })
+
+                    if School.objects.filter(username=username).exists():
+                        return render(request, "signup.html", {
+                            "error": "Nom d'utilisateur déjà utilisé"
+                        })
+
+                    School.objects.create(
+                        name=school_name,
+                        email=email,
+                        username=username,
+                        password=make_password(password),
+                    )
+                break
+            except OperationalError as exc:
+                if "database is locked" not in str(exc).lower() or attempt == 2:
+                    return render(request, "signup.html", {
+                        "error": "Base de données occupée, réessaie dans quelques secondes."
+                    })
+                time.sleep(0.3)
 
         return redirect("login")
 
@@ -30,15 +57,37 @@ def signup_view(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get("username")
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "")
 
-        user = UserAccount.objects.filter(username=username).first()
+        if not username or not password:
+            return render(request, "login.html", {
+                "error": "Nom d'utilisateur et mot de passe obligatoires"
+            })
 
-        if user:
-            return redirect("dashboard")
+        school = School.objects.filter(username=username).first()
+
+        if not school:
+            return render(request, "login.html", {
+                "error": "Nom d'utilisateur introuvable"
+            })
+
+        if not school.password:
+            return render(request, "login.html", {
+                "error": "Aucun mot de passe n'est défini pour ce compte"
+            })
+
+        password_valid = check_password(password, school.password) or school.password == password
+
+        if password_valid:
+            request.session["school_name"] = school.name
+            request.session["school_username"] = school.username
+            request.session["school_id"] = school.id
+            request.session.modified = True
+            return redirect("users:dashboard")
 
         return render(request, "login.html", {
-            "error": "Utilisateur introuvable"
+            "error": "Mot de passe incorrect"
         })
 
     return render(request, "login.html")

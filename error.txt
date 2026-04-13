@@ -1,0 +1,11 @@
+TemplateDoesNotExist at /etudiants/
+etudiants/liste.html
+Request Method:	GET
+Request URL:	http://127.0.0.1:8000/etudiants/
+Django Version:	6.0.4
+Exception Type:	TemplateDoesNotExist
+Exception Value:	
+etudiants/liste.html
+Exception Location:	C:\Users\Ronald\Desktop\Workspace\sipakely\GestionScolarte\.venv\Lib\site-packages\django\template\loader.py, line 19, in get_template
+Raised during:	users.views.liste_etudiants
+Python Executable:	C:\Users\Ronald\Desktop\Wor

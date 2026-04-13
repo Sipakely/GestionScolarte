@@ -1,42 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire</title>
-</head>
-<body>
-   {% extends 'base_form.html' %}
+{% extends "base.html" %}
 
-{% block title %}Ajout Étudiant{% endblock %}
+{% block title %}{{ page_title|default:"Ajout Étudiant" }}{% endblock %}
 
 {% block content %}
 
-<h3 class="form-title">Ajouter un étudiant</h3>
+<h3 class="form-title">{{ page_title|default:"Ajouter un étudiant" }}</h3>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags|default:'info' }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
 
 <form method="POST">
     {% csrf_token %}
 
     <div class="mb-3">
         <label>Nom</label>
-        <input type="text" name="nom" class="form-control" required>
-    </div>
-
-    <div class="mb-3">
-        <label>Prénom</label>
-        <input type="text" name="prenom" class="form-control" required>
+        <input type="text" name="nom" class="form-control" value="{{ form.nom.value|default:'' }}" required>
     </div>
 
     <div class="mb-3">
         <label>Email</label>
-        <input type="email" name="email" class="form-control" required>
+        <input type="email" name="email" class="form-control" value="{{ form.email.value|default:'' }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Âge</label>
+        <input type="number" name="age" class="form-control" value="{{ form.age.value|default:'' }}" required>
     </div>
 
     <button type="submit" class="btn btn-primary w-100">
-        Enregistrer
+        {{ submit_label|default:"Enregistrer" }}
     </button>
 </form>
 
 {% endblock %}
-</body>
-</html>

@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de bord</title>
-</head>
-<body>
-    {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -15,7 +7,7 @@
 
   <div>
     <h5 class="mb-0">Dashboard</h5>
-    <small class="text-muted">Vue générale du système</small>
+    <small class="text-muted">Vue générale du système{% if school_name %} - {{ school_name }}{% endif %}</small>
   </div>
 
   <div>
@@ -31,15 +23,15 @@
   <div class="col-md-3">
     <div class="card p-3">
       <h6>Étudiants</h6>
-      <h3>120</h3>
-      <small class="text-success">+5% ce mois</small>
+      <h3>{{ total_etudiants }}</h3>
+      <small class="text-success">Enregistrés</small>
     </div>
   </div>
 
   <div class="col-md-3">
     <div class="card p-3">
       <h6>Matières</h6>
-      <h3>8</h3>
+      <h3>{{ total_matieres }}</h3>
       <small class="text-muted">Actives</small>
     </div>
   </div>
@@ -47,16 +39,16 @@
   <div class="col-md-3">
     <div class="card p-3">
       <h6>Notes</h6>
-      <h3>450</h3>
-      <small class="text-success">+12 nouvelles</small>
+      <h3>{{ total_notes }}</h3>
+      <small class="text-success">Enregistrées</small>
     </div>
   </div>
 
   <div class="col-md-3">
     <div class="card p-3">
       <h6>Moyenne générale</h6>
-      <h3>12.8</h3>
-      <small class="text-warning">Stable</small>
+      <h3>{{ moyenne_generale }}</h3>
+      <small class="text-warning">Calculée sur les notes</small>
     </div>
   </div>
 
@@ -79,16 +71,17 @@
           </tr>
         </thead>
         <tbody>
+          {% for etu in derniers_etudiants %}
           <tr>
-            <td>Rakoto</td>
-            <td>rakoto@mail.com</td>
+            <td>{{ etu.nom }}</td>
+            <td>{{ etu.email }}</td>
             <td><span class="badge bg-success">Actif</span></td>
           </tr>
+          {% empty %}
           <tr>
-            <td>Rabe</td>
-            <td>rabe@mail.com</td>
-            <td><span class="badge bg-warning">En attente</span></td>
+            <td colspan="3" class="text-muted">Aucun étudiant enregistré</td>
           </tr>
+          {% endfor %}
         </tbody>
       </table>
 
@@ -101,9 +94,11 @@
       <h6>Activité récente</h6>
 
       <ul class="list-unstyled mt-3">
-        <li>✔ Note ajoutée</li>
-        <li>✔ Étudiant inscrit</li>
-        <li>✔ Matière modifiée</li>
+        {% for activite in activites_recentes %}
+        <li>✔ {{ activite }}</li>
+        {% empty %}
+        <li>Aucune activité récente</li>
+        {% endfor %}
       </ul>
 
     </div>
@@ -112,5 +107,3 @@
 </div>
 
 {% endblock %}
-    </body>
-</html>

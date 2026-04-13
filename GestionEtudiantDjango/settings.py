@@ -73,6 +73,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'timeout': 20,
+        },
     }
 }
 
@@ -122,6 +125,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True

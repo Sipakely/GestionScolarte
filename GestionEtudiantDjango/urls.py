@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from django.shortcuts import render
 
 from utilisateur import views as user_views
@@ -13,7 +13,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', index, name='index'),
-
+    path('notes/', include('notes.urls')),
     path('signup/', user_views.signup_view, name='signup'),
     path('login/', user_views.login_view, name='login'),
 ]

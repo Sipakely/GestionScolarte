@@ -1,9 +1,18 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
+from django.shortcuts import render
+from utilisateur import views as user_views
 
-app_name = 'notes'
+
+def index(request):
+    return render(request, 'index.html')
+
 
 urlpatterns = [
-    path('', views.liste_notes, name='liste'),
-    path('ajouter/', views.ajouter_note, name='ajouter'),
+    path('admin/', admin.site.urls),
+
+    path('', index, name='index'),
+
+    path('signup/', user_views.signup_view, name='signup'),
+    path('login/', user_views.login_view, name='login'),
 ]

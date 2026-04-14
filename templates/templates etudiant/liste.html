@@ -26,8 +26,10 @@
       <td>{{ e.email }}</td>
       <td>
         <a href="{% url 'users:modifier' e.id %}" class="btn btn-warning btn-sm">Edit</a>
-      </td>
+        <a href="{% url 'notes:bulletin' e.id %}" class="btn btn-primary">Voir bulletin</a>
+    </td>
     </tr>
+    
     {% empty %}
     <tr>
       <td colspan="3" class="text-muted">Aucun étudiant enregistré</td>

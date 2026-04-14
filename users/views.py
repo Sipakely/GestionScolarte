@@ -38,22 +38,36 @@ def index(request):
 # --------------------
 def dashboard(request):
     school_name = get_active_school_name(request)
+
+    # Filtrage correct
     etudiants_qs = Etudiant.objects.filter(school_name=school_name) if school_name else Etudiant.objects.none()
     matieres_qs = Matiere.objects.filter(school_name=school_name) if school_name else Matiere.objects.none()
-    notes_qs = Note.objects.filter(school_name=school_name) if school_name else Note.objects.none()
+
+    # 🔥 CORRECTION ICI
+    notes_qs = Note.objects.filter(etudiant__school_name=school_name) if school_name else Note.objects.none()
+
     moyenne_generale = notes_qs.aggregate(moyenne=Avg("valeur"))["moyenne"] or 0
     derniers_etudiants = etudiants_qs.order_by("-id")[:5]
 
     activites_recentes = []
+
     if notes_qs.exists():
         derniere_note = notes_qs.order_by("-id").first()
-        activites_recentes.append(f"Note ajoutée: {derniere_note.etudiant.nom} - {derniere_note.matiere.nom}")
+        activites_recentes.append(
+            f"Note ajoutée: {derniere_note.etudiant.nom} - {derniere_note.matiere.nom}"
+        )
+
     if etudiants_qs.exists():
         dernier_etudiant = etudiants_qs.order_by("-id").first()
-        activites_recentes.append(f"Étudiant inscrit: {dernier_etudiant.nom}")
+        activites_recentes.append(
+            f"Étudiant inscrit: {dernier_etudiant.nom}"
+        )
+
     if matieres_qs.exists():
         derniere_matiere = matieres_qs.order_by("-id").first()
-        activites_recentes.append(f"Matière active: {derniere_matiere.nom}")
+        activites_recentes.append(
+            f"Matière active: {derniere_matiere.nom}"
+        )
 
     context = {
         "total_etudiants": etudiants_qs.count(),
@@ -65,8 +79,8 @@ def dashboard(request):
         "activites_recentes": activites_recentes,
         "school_name": school_name,
     }
-    return render(request, "dashboard.html", context)
 
+    return render(request, "dashboard.html", context)
 
 # --------------------
 # AJOUT ETUDIANT

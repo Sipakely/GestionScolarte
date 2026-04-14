@@ -1,17 +1,24 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+
 from .models import Note
+from .forms import NoteForm
 from users.models import Etudiant
-from matieres.models import Matiere
 from utilisateur.models import School
 
 
+# -------------------------
+# RÉCUPÉRER ÉCOLE ACTIVE
+# -------------------------
 def get_active_school_name(request):
     school_id = request.session.get("school_id")
     school_username = request.session.get("school_username")
 
     school = None
+
     if school_id:
         school = School.objects.filter(id=school_id).first()
+
     if not school and school_username:
         school = School.objects.filter(username=school_username).first()
 
@@ -22,35 +29,63 @@ def get_active_school_name(request):
     return request.session.get("school_name", "")
 
 
-def liste_notes(request):
-    school_name = get_active_school_name(request)
-    notes = Note.objects.filter(school_name=school_name) if school_name else Note.objects.none()
-    return render(request, 'Templates notes/liste.html', {'notes': notes})
-
-
+# -------------------------
+# AJOUT NOTE
+# -------------------------
 def ajouter_note(request):
     school_name = get_active_school_name(request)
-    etudiants = Etudiant.objects.filter(school_name=school_name) if school_name else Etudiant.objects.none()
-    matieres = Matiere.objects.filter(school_name=school_name) if school_name else Matiere.objects.none()
 
-    if request.method == 'POST':
-        etudiant_id = request.POST['etudiant']
-        matiere_id = request.POST['matiere']
-        valeur = request.POST['valeur']
+    if request.method == "POST":
+        form = NoteForm(request.POST)
 
-        etudiant = Etudiant.objects.get(id=etudiant_id, school_name=school_name)
-        matiere = Matiere.objects.get(id=matiere_id, school_name=school_name)
+        if form.is_valid():
+            form.save()  # la note est enregistrée directement
 
-        Note.objects.create(
-            school_name=school_name,
-            etudiant=etudiant,
-            matiere=matiere,
-            valeur=valeur
-        )
+            messages.success(request, "Note ajoutée avec succès")
+            return redirect("dashboard")
 
-        return redirect('notes:liste')
+        else:
+            messages.error(request, "Erreur lors de l'ajout de la note")
 
-    return render(request, 'Templates notes/ajouter.html', {
-        'users': etudiants,
-        'matieres': matieres
+    else:
+        form = NoteForm()
+
+    return render(request, "Templates notes/form.html", {
+        "form": form,
+        "page_title": "Ajouter une note",
+        "submit_label": "Enregistrer",
+        "school_name": school_name,
+    })
+
+
+# -------------------------
+# LISTE DES NOTES
+# -------------------------
+def liste_notes(request):
+    school_name = get_active_school_name(request)
+
+    notes = Note.objects.all()
+
+    return render(request, "Templates notes/liste.html", {
+        "notes": notes,
+        "school_name": school_name
+    })
+
+
+# -------------------------
+# BULLETIN ÉTUDIANT
+# -------------------------
+def bulletin_etudiant(request, etudiant_id):
+    etudiant = get_object_or_404(Etudiant, id=etudiant_id)
+    notes = Note.objects.filter(etudiant=etudiant)
+
+    total = sum(note.valeur for note in notes)
+    count = notes.count()
+
+    moyenne = round(total / count, 2) if count > 0 else 0
+
+    return render(request, "Templates notes/bulletin.html", {
+        "etudiant": etudiant,
+        "notes": notes,
+        "moyenne": moyenne
     })

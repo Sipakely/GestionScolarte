@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une note</title>
+</head>
+<body>
+
+   {% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+  <h4 class="mb-4">{{ page_title }}</h4>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      {{ form.etudiant.label_tag }}
+      {{ form.etudiant }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.matiere.label_tag }}
+      {{ form.matiere }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.valeur.label_tag }}
+      {{ form.valeur }}
+    </div>
+
+    <button type="submit" class="btn btn-dark">
+      {{ submit_label }}
+    </button>
+
+  </form>
+
+</div>
+
+{% endblock %}
+</body>
+</html>
